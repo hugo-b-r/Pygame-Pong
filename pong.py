@@ -6,6 +6,26 @@ pygame.init()
 NOIR = (0,0,0)
 BLANC = (255,255,255)
 
+#on crée la classe de la raquette
+class Raquette(pygame.sprite.Sprite):
+    #c'est n dérivé de la classe sprite de pygame
+    
+    def __init__(self, color, width, height):
+        # Call the parent class (Sprite) constructor
+        super().__init__()
+        
+        # Pass in the color of the paddle, and its x and y position, width and height.
+        # Set the background color and set it to be transparent
+        self.image = pygame.Surface([width, height])
+        self.image.fill(BLACK)
+        self.image.set_colorkey(BLACK)
+ 
+        # Draw the paddle (a rectangle!)
+        pygame.draw.rect(self.image, color, [0, 0, width, height])
+        
+        # Fetch the rectangle object that has the dimensions of the image.
+        self.rect = self.image.get_rect()
+
 #on ouvre une fenetre
 taille_de_la_fenetre = (400, 300)
 ecran = pygame.display.set_mode(taille_de_la_fenetre)
