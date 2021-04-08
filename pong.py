@@ -8,22 +8,22 @@ BLANC = (255,255,255)
 
 #on crée la classe de la raquette
 class Raquette(pygame.sprite.Sprite):
-    #c'est n dérivé de la classe sprite de pygame
+    #c'est un dérivé de la classe sprite de pygame
     
-    def __init__(self, color, width, height):
-        # Call the parent class (Sprite) constructor
+    def __init__(self, color, largeur, hauteur):
+        # on appelle le cnstructeur de la super class
         super().__init__()
         
-        # Pass in the color of the paddle, and its x and y position, width and height.
-        # Set the background color and set it to be transparent
-        self.image = pygame.Surface([width, height])
-        self.image.fill(BLACK)
-        self.image.set_colorkey(BLACK)
+        # on donne la couleur de la raquette et sa taille
+        # on met le fond d'écran en noir
+        self.image = pygame.Surface([largeur, hauteur])
+        self.image.fill(NOIR)
+        self.image.set_colorkey(NOIR)
  
-        # Draw the paddle (a rectangle!)
-        pygame.draw.rect(self.image, color, [0, 0, width, height])
+        # on dessinne le rectangle
+        pygame.draw.rect(self.image, color, [0, 0, largeur, hauteur])
         
-        # Fetch the rectangle object that has the dimensions of the image.
+        # on fait iun rectangle image
         self.rect = self.image.get_rect()
 
 #on ouvre une fenetre
