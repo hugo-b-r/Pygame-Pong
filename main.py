@@ -9,7 +9,7 @@ class Game:
         self.display = pyg.display.set_mode((700, 500))
 
         #we put here the caption
-        pyg.dislpay.set_caption('Pong Game')
+        pyg.display.set_caption('Pong Game')
 
         #we set the game to true
         self.is_the_game_running = True
@@ -18,9 +18,9 @@ class Game:
 
         while self.is_the_game_running:
             #test for evnts
-            for event in pyg.even.get():
+            for event in pyg.event.get():
 
-                if event.type == pyg.QUIT():
+                if event.type == pyg.QUIT:
 
                     sys.exit()
 
