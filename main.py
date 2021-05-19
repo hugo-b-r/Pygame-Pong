@@ -3,7 +3,7 @@ import sys
 import const
 import time
 
-from pygame.constants import K_DOWN, K_UP
+from pygame.constants import K_DOWN, K_UP, K_z, K_s
 
 
 #------------------------------------------------------------------------------------------------------
@@ -21,6 +21,7 @@ clock = pygame.time.Clock()
 DISPLAY.fill(const.BLACK)
 pygame.display.flip()
 
+keys = pygame.key.get_pressed()
 
 
 #------------------------------------------------------------------------------------------------------
@@ -28,9 +29,11 @@ pygame.display.flip()
 
 #player class
 class Player:
-    def __init__(self, x, y):
+    def __init__(self, x, y, key_to_go_up, key_to_go_down):
         self.x = x
         self.y = y
+        self.key_to_go_up = key_to_go_up
+        self.key_to_go_down = key_to_go_down
         self.speed = 0
         self.height = const.bat_height
         self.width = const.bat_height
@@ -47,30 +50,34 @@ class Player:
     #how the player move
     def move(self):
         print(self.y)
-        if self.speed < 0:
-            if (self.y != 0):
+        if (self.speed < 0 and self.y != 0) or (self.speed > 0 and self.y != 400):
 
-                self.show(const.BLACK)
-        
-                self.y += self.speed
-
-                self.show(const.WHITE)
-        else:
             self.show(const.BLACK)
         
             self.y += self.speed
 
             self.show(const.WHITE)
 
+    def getting_speed_from_keys(self):
+            if keys[self.key_to_go_up] == 1:
+                self.speed = -4
+
+            elif keys[self.key_to_go_down] == 1:
+                self.speed = 4
+            
+            else:
+                self.speed = 0
+            
+
 #------------------------------------------------------------------------------------------------------
 
   
 #init players
 #player 1
-Player_1 = Player(40, 200)
+Player_1 = Player(80, 200, K_z, K_s)
  
 #player 2
-Player_2 = Player(660, 200)
+Player_2 = Player(620, 200, K_UP, K_DOWN)
 
 
 def show_players():
@@ -100,14 +107,9 @@ def main_loop():
         #test for events
         keys = pygame.key.get_pressed()
 
-        if keys[K_UP] == 1:
-                Player_2.speed = -5
+        Player_2.getting_speed_from_keys()
 
-        elif keys[K_DOWN] == 1:
-                Player_2.speed = 5
-            
-        else:
-            Player_2.speed = 0
+        Player_1.getting_speed_from_keys()
             
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
