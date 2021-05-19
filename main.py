@@ -29,11 +29,9 @@ keys = pygame.key.get_pressed()
 
 #player class
 class Player:
-    def __init__(self, x, y, key_to_go_up, key_to_go_down):
+    def __init__(self, x, y):
         self.x = x
         self.y = y
-        self.key_to_go_up = key_to_go_up
-        self.key_to_go_down = key_to_go_down
         self.speed = 0
         self.height = const.bat_height
         self.width = const.bat_height
@@ -58,15 +56,6 @@ class Player:
 
             self.show(const.WHITE)
 
-    def getting_speed_from_keys(self):
-            if keys[self.key_to_go_up] == 1:
-                self.speed = -4
-
-            elif keys[self.key_to_go_down] == 1:
-                self.speed = 4
-            
-            else:
-                self.speed = 0
             
 
 #------------------------------------------------------------------------------------------------------
@@ -74,10 +63,10 @@ class Player:
   
 #init players
 #player 1
-Player_1 = Player(80, 200, K_z, K_s)
+Player_1 = Player(80, 200)
  
 #player 2
-Player_2 = Player(620, 200, K_UP, K_DOWN)
+Player_2 = Player(620, 200)
 
 
 def show_players():
@@ -107,9 +96,28 @@ def main_loop():
         #test for events
         keys = pygame.key.get_pressed()
 
-        Player_2.getting_speed_from_keys()
+    
+        #for Player 1
+        if keys[K_z] == 1:
+            Player_1.speed = -4
 
-        Player_1.getting_speed_from_keys()
+        elif keys[K_s] == 1:
+            Player_1.speed = 4
+            
+        else:
+            Player_1.speed = 0
+
+
+
+            #for player 2
+        if keys[K_UP] == 1:
+            Player_2.speed = -4
+
+        elif keys[K_DOWN] == 1:
+            Player_2.speed = 4
+            
+        else:
+            Player_2.speed = 0
             
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
